@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Primary Meta Tags -->
+  <meta name="title" content="TpTf: Transporting Transformer Networks - Senol, Oguz">
+  <meta name="description" content="TpTf replaces Transporter Networks' three CNN branches with one shared self-attention encoder, cutting compute from 138.8 to 46.88 GFLOPs while outperforming the baseline on the Ravens benchmark in single- and multi-task settings.">
+  <meta name="keywords" content="robot learning, imitation learning, transformers, self-attention, pick-and-place, robotic manipulation, Ravens benchmark, Transporter Networks, multi-task learning">
+  <meta name="author" content="B. Bilgin Senol, Ozgur S. Oguz">
+  <meta name="robots" content="index, follow">
+  <meta name="language" content="English">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Bilkent University">
+  <meta property="og:title" content="TpTf: Leveraging Global Receptive Fields for Visual Robotic Manipulation">
+  <meta property="og:description" content="A Transporting Transformer that replaces three CNN branches with one shared self-attention encoder — lower compute, higher success on the Ravens benchmark.">
+  <meta property="og:url" content="https://bilginsenol.github.io/tptf/">
+  <meta property="og:image" content="https://bilginsenol.github.io/tptf/static/images/tasks.png">
+  <meta property="og:image:alt" content="TpTf performing the ten Ravens pick-and-place tasks">
+  <meta property="article:author" content="B. Bilgin Senol">
+  <meta property="article:section" content="Research">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="TpTf: Transporting Transformer Networks">
+  <meta name="twitter:description" content="One shared self-attention encoder instead of three CNN branches — lower compute, higher success on the Ravens benchmark.">
+  <meta name="twitter:image" content="https://bilginsenol.github.io/tptf/static/images/tasks.png">
+  <meta name="twitter:image:alt" content="TpTf performing the ten Ravens pick-and-place tasks">
+
+  <!-- Academic/Research Specific -->
+  <meta name="citation_title" content="TpTf: Leveraging Global Receptive Fields for Visual Robotic Manipulation with Transporting Transformer Networks">
+  <meta name="citation_author" content="Senol, B. Bilgin">
+  <meta name="citation_author" content="Oguz, Ozgur S.">
+
+  <!-- Additional SEO -->
+  <meta name="theme-color" content="#2563eb">
+  <link rel="canonical" href="https://bilginsenol.github.io/tptf/">
+
+  <!-- Preconnect for performance -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://ajax.googleapis.com">
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+
+  <title>TpTf: Transporting Transformer Networks | Senol &amp; Oguz</title>
+
+  <!-- Favicon and App Icons -->
+  <link rel="icon" type="image/x-icon" href="static/images/favicon.ico">
+  <link rel="apple-touch-icon" href="static/images/favicon.ico">
+
+  <!-- Critical CSS - Load synchronously -->
+  <link rel="stylesheet" href="static/css/bulma.min.css">
+  <link rel="stylesheet" href="static/css/index.css">
+
+  <!-- Non-critical CSS - Load asynchronously -->
+  <link rel="preload" href="static/css/bulma-carousel.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <link rel="preload" href="static/css/bulma-slider.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <link rel="preload" href="static/css/fontawesome.all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <link rel="preload" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+
+  <!-- Fallback for browsers that don't support preload -->
+  <noscript>
+    <link rel="stylesheet" href="static/css/bulma-carousel.min.css">
+    <link rel="stylesheet" href="static/css/bulma-slider.min.css">
+    <link rel="stylesheet" href="static/css/fontawesome.all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  </noscript>
+
+  <!-- Fonts - Optimized loading -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Defer non-critical JavaScript -->
+  <script defer src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="static/js/fontawesome.all.min.js"></script>
+  <script defer src="static/js/bulma-carousel.min.js"></script>
+  <script defer src="static/js/bulma-slider.min.js"></script>
+  <script defer src="static/js/index.js"></script>
+  <!-- Shared list of my papers, maintained in one place at the site root -->
+  <script defer src="/more-works.js"></script>
+
+  <!-- Structured Data for Academic Papers -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ScholarlyArticle",
+    "headline": "TpTf: Leveraging Global Receptive Fields for Visual Robotic Manipulation with Transporting Transformer Networks",
+    "description": "TpTf replaces Transporter Networks' three CNN branches with a single shared self-attention encoder, reducing compute from 138.8 to 46.88 GFLOPs while outperforming the baseline on the Ravens benchmark.",
+    "author": [
+      { "@type": "Person", "name": "B. Bilgin Senol", "affiliation": { "@type": "Organization", "name": "Bilkent University" } },
+      { "@type": "Person", "name": "Ozgur S. Oguz", "affiliation": { "@type": "Organization", "name": "Bilkent University" } }
+    ],
+    "url": "https://bilginsenol.github.io/tptf/",
+    "image": "https://bilginsenol.github.io/tptf/static/images/tasks.png",
+    "keywords": ["robot learning", "imitation learning", "transformers", "self-attention", "robotic manipulation", "Ravens benchmark"],
+    "isAccessibleForFree": true
+  }
+  </script>
+</head>
+<body>
+
+  <!-- Scroll to Top Button -->
+  <button class="scroll-to-top" onclick="scrollToTop()" title="Scroll to top" aria-label="Scroll to top">
+    <i class="fas fa-chevron-up"></i>
+  </button>
+
+  <!-- More Works Dropdown — rendered from the shared /more-works.js -->
+  <div id="more-works-root"></div>
+
+  <main id="main-content">
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column has-text-centered">
+            <h1 class="title is-1 publication-title">TpTf: Leveraging Global Receptive Fields for Visual Robotic Manipulation with Transporting Transformer Networks</h1>
+            <div class="is-size-5 publication-authors">
+              <span class="author-block">
+                <a href="https://bilginsenol.github.io/" target="_blank">B. Bilgin Senol</a>,</span>
+              <span class="author-block">
+                <a href="https://oz-oguz.github.io/" target="_blank">Ozgur S. Oguz</a></span>
+            </div>
+
+            <div class="is-size-5 publication-authors">
+              <span class="author-block">Department of Computer Engineering, Bilkent University, Ankara, Türkiye</span>
+            </div>
+
+            <div class="column has-text-centered">
+              <div class="publication-links">
+                <!-- TODO: link the paper PDF once available -->
+                <span class="link-block">
+                  <a href="#" target="_blank"
+                  class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon"><i class="fas fa-file-pdf"></i></span>
+                  <span>Paper (soon)</span>
+                </a>
+                </span>
+
+                <!-- TODO: link the appendix PDF once available -->
+                <span class="link-block">
+                  <a href="#" target="_blank"
+                  class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon"><i class="fas fa-file-pdf"></i></span>
+                  <span>Appendix (soon)</span>
+                </a>
+                </span>
+
+                <!-- TODO: replace with the public code repository URL once released -->
+                <span class="link-block">
+                  <a href="#" target="_blank"
+                  class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon"><i class="fab fa-github"></i></span>
+                  <span>Code (soon)</span>
+                </a>
+                </span>
+
+                <!-- TODO: add arXiv id once available -->
+                <span class="link-block">
+                  <a href="#" target="_blank"
+                  class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon"><i class="ai ai-arxiv"></i></span>
+                  <span>arXiv (soon)</span>
+                </a>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+<!-- Teaser figure -->
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <img src="static/images/tasks.png" alt="TpTf performing the ten Ravens pick-and-place tasks" style="width:100%;"/>
+      <h2 class="subtitle has-text-centered">
+        The Transporting Transformer (TpTf) performing robotic manipulation on the Ravens benchmark using
+        <i>pick-and-place</i> primitives. It predicts useful pick and place positions <i>solely</i> from visual input,
+        without object-level assumptions: (a) align-box-corner, (b) assembling-kits, (c) block-insertion,
+        (d) manipulating-rope, (e) packing-boxes, (f) palletizing-boxes, (g) place-red-in-green,
+        (h) stack-block-pyramid, (i) sweeping-piles, and (j) towers-of-hanoi.
+      </h2>
+    </div>
+  </div>
+</section>
+<!-- End teaser figure -->
+
+<!-- Paper abstract -->
+<section class="section hero is-light">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            Pick-and-place manipulation requires resolving spatial relationships between distant scene regions: the
+            correct grasp location often depends on context far removed from the object itself. Existing approaches such
+            as Transporter Networks address this through convolutional backbones that acquire global context only by
+            depth — stacking many stages to progressively expand the receptive field — and run three independent
+            branches for the pick, place, and crop operations, encoding the scene redundantly at substantial compute cost.
+          </p>
+          <p>
+            We propose the <b>Transporting Transformer (TpTf)</b>, which replaces the three independent branches with a
+            single shared self-attention encoder that computes pairwise interactions across all spatial locations from
+            the first layer, followed by lightweight token-conditioned readout heads for each operation. The shared
+            backbone eliminates redundant scene encoding, reducing total compute from <b>138.8 to 46.88 GFLOPs</b>, while
+            the shared self-attention representation serves functionally specialized readout heads for pick, place, and
+            crop — properties we analyze through dedicated studies of representation disentanglement and long-range
+            interactions.
+          </p>
+          <p>
+            We further introduce a <b>multi-task evaluation protocol</b> for Ravens in which a single model is trained
+            simultaneously on all tasks from visual observations alone, without task identifiers or goal conditioning,
+            requiring substantially fewer total training iterations than per-task models. TpTf outperforms Transporter
+            Networks across both single-task and multi-task settings, with the performance gap widening in the
+            multi-task regime, where shared-encoder representations provide greater benefit.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End paper abstract -->
+
+<!-- Contributions -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-full">
+        <h2 class="title is-3 has-text-centered">Contributions</h2>
+        <div class="content is-size-5">
+          <ul>
+            <li>
+              <b>A Transformer for top-down pick-and-place.</b> TpTf replaces Transporter's three independent CNN
+              branches with a single shared self-attention encoder and lightweight task-specific readout heads. The
+              shared backbone provides a globally receptive field from the first stage, reduces total compute from
+              138.8 to 46.88 GFLOPs, and outperforms Transporter in both single- and multi-task settings on Ravens.
+            </li>
+            <li>
+              <b>A multi-task protocol for Ravens.</b> A single TpTf model solves all ten tasks simultaneously using
+              only visual input — no task identifiers or goal conditioning — with substantially fewer total training
+              iterations than per-task training. TpTf's advantage over Transporter is <i>larger</i> in the multi-task
+              setting, establishing that the gain is architectural rather than an artefact of the training scheme.
+            </li>
+            <li>
+              <b>Evidence for long-range reasoning and task disentanglement.</b> Two dedicated analyses: a depth-matched
+              stage-wise attention visualization on a <i>sweeping-piles</i> probe that isolates receptive-field effects,
+              and a token-attention analysis on a combined pyramid + assembling-kits scene showing disentangled
+              task-specific readouts from a single shared encoder.
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End contributions -->
+
+<!-- Architecture -->
+<section class="section hero is-light">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-full">
+        <h2 class="title is-3 has-text-centered">Architecture</h2>
+        <img src="static/images/architecture.png" alt="The TpTf network architecture" style="width:100%;"/>
+        <div class="content has-text-justified" style="margin-top:1.25rem;">
+          <p>
+            The input observation is split into non-overlapping patches and flattened before being processed by a
+            <b>shared self-attention encoder</b>. The encoded features are refined by PatchExpand layers, which reduce
+            embedding depth and increase token count, ultimately generating tokens that represent the pick and place
+            action-value maps. Rotational bins are derived by taking partial crops around the pick coordinate, followed
+            by cross-correlation to obtain a map that correlates placing coordinates with discrete rotation bins.
+          </p>
+          <p>
+            The shared backbone encodes the scene <i>only once</i> — replacing the three full per-branch passes of the
+            baseline — and three lightweight readout heads (pick, place, crop) specialize the shared representation for
+            each objective. PatchExpand resolves the tension between patch tokenization (needed to keep sequence length
+            tractable) and the per-pixel coordinates that pick-and-place requires.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End architecture -->
+
+<!-- Results -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">Key Results</h2>
+
+    <h3 class="title is-5">Efficiency: one shared encoder vs. three CNN branches</h3>
+    <div class="content">
+      <table class="table is-fullwidth is-striped is-hoverable">
+        <thead>
+          <tr><th>Model</th><th>Forward GFLOPs</th><th>Parameters</th><th>Peak memory</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Transporter</td><td>138.8</td><td>29.50 M</td><td>1874 MB</td></tr>
+          <tr><td><b>TpTf</b></td><td><b>46.88</b></td><td>23.05 M</td><td>1542 MB</td></tr>
+          <tr><td>TpTf-xs</td><td>21.14</td><td>10.41 M</td><td>1060 MB</td></tr>
+        </tbody>
+      </table>
+      <p>
+        The savings are structural rather than transformer-intrinsic: Transporter runs three independent encoders that
+        each pay the full convolutional cost, whereas TpTf encodes the scene once. Despite the inherent
+        <span class="is-italic">O(N²)</span> token cost of self-attention, net compute is substantially lower because
+        the backbone runs only once and the readout heads are shallow. TpTf-xs widens the gap further while still
+        outperforming Transporter.
+      </p>
+    </div>
+
+    <h3 class="title is-5">Multi-task: the gap widens when sharing a training stream</h3>
+    <div class="content">
+      <p>Per-task L4 success rate (%) in the multi-task setting at 1000 demos, rapid switching (κ = 1):</p>
+      <table class="table is-fullwidth is-striped is-hoverable">
+        <thead>
+          <tr><th>Task</th><th>Transporter</th><th>TpTf</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>stack-block-pyramid</td><td>23.4</td><td><b>78.4</b></td></tr>
+          <tr><td>towers-of-hanoi</td><td>37.7</td><td><b>89.5</b></td></tr>
+          <tr><td><b>Average across all tasks</b></td><td>77.6</td><td><b>91.0</b></td></tr>
+        </tbody>
+      </table>
+      <p>
+        TpTf outperforms Transporter by a larger margin in the multi-task setting than in single-task training, even
+        though both models train under the identical round-robin protocol — directly establishing that the advantage is
+        architectural. Transporter's separate convolutional branches degrade substantially when asked to share a
+        training stream across tasks; TpTf's shared self-attention backbone maintains and extends its single-task lead,
+        and degrades far more gracefully as the switching parameter κ grows (a controlled proxy for the
+        stability–plasticity dilemma in continual learning).
+      </p>
+    </div>
+  </div>
+</section>
+<!-- End results -->
+
+<!-- Analysis: long-range interactions -->
+<section class="section hero is-light">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">Analysis — Long-Range Interactions</h2>
+    <img src="static/images/attention.png" alt="Depth-matched stage-wise dense features for sweeping-piles" style="width:100%;"/>
+    <div class="content has-text-justified" style="margin-top:1.25rem;">
+      <p>
+        Depth-matched stage-wise dense features for a single step of <i>sweeping-piles</i> — a probe task whose optimal
+        pick location depends causally on a scene element (the target zone) spatially distant from the piles.
+        <b>Top row:</b> Transporter's convolutional pick network. <b>Bottom row:</b> TpTf's self-attention encoder and
+        pick head.
+      </p>
+      <p>
+        In Transporter, early stages (1–5) respond only to the piles; the target zone first becomes visible around
+        stage 7, and a jointly-localized pile–zone response only emerges at stages 9–11, after enough convolutions have
+        been stacked for the receptive field to span both regions. TpTf instead attends to <i>both</i> the piles and the
+        remote target zone already at stage 1, and the pick head refines this global representation in only two further
+        stages — concentrating its response on the outer pixels facing the target zone, precisely the contact point that
+        displaces the most particles in a single sweep. The architectural difference propagates all the way to the pick
+        policy, not just the intermediate features.
+      </p>
+    </div>
+  </div>
+</section>
+<!-- End long-range -->
+
+<!-- Analysis: entanglement -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">Analysis — Representation Disentanglement</h2>
+    <img src="static/images/entanglement.png" alt="Representation entanglement on a combined pyramid + assembling-kits scene" style="width:100%;"/>
+    <div class="content has-text-justified" style="margin-top:1.25rem;">
+      <p>
+        A combined <i>stack-block-pyramid</i> + <i>assembling-kits</i> scene, captured where four pyramid blocks are
+        placed and no kit slots are filled — so the next action could legitimately belong to either sub-task. Rows
+        correspond to the pick, place, and crop stages of a single action.
+      </p>
+      <p>
+        Sharing an encoder across pick, place, and crop only hurts if the encoder is forced to pick a side — and with
+        token-conditioned readouts it is not. At the pick stage, Transporter activates nearly uniformly over every
+        pickable object whereas TpTf commits decisively to a single stacking block, with the place token already
+        attending to that same block before any cross-branch communication. At the place stage, Transporter fires on the
+        placement regions of <i>both</i> tasks simultaneously — the signature of interference — while TpTf narrows to the
+        elected region. TpTf recovers the non-interference property that Transporter buys through full replication, but
+        with one encoder instead of three.
+      </p>
+    </div>
+  </div>
+</section>
+<!-- End entanglement -->
+
+<!-- Real-world demonstration -->
+<section class="section hero is-light">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">Real-World Demonstration</h2>
+    <div class="columns is-centered is-vcentered">
+      <div class="column is-4 has-text-centered">
+        <video poster="" controls muted loop playsinline preload="metadata"
+               width="780" height="980"
+               style="max-width:min(100%,280px); height:auto; border-radius:12px; box-shadow:0 10px 30px rgba(0,0,0,0.15);">
+          <source src="static/videos/real_world_demo_5x_cropped_3kbitrate.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="column is-8">
+        <img src="static/images/real_world.png" alt="Real-world stack-block-pyramid execution on a 7-DoF arm" style="width:100%; border-radius:8px;"/>
+      </div>
+    </div>
+    <div class="content has-text-justified" style="margin-top:1.25rem;">
+      <p>
+        To verify that TpTf transfers beyond simulation, we deployed the model on a <b>7-DoF robotic arm</b> with an
+        overhead RGB-D camera, training on 10 <i>stack-block-pyramid</i> demonstrations collected on hardware and
+        evaluating on held-out arrangements. The model produces stable pick and place coordinates from real RGB-D input
+        and executes the primitive across rollouts. <b>Column 1:</b> the top-down RGB-D observation (top half: depth,
+        bottom half: RGB) with predicted pick (green) and place (red) crosshairs. <b>Columns 2–4:</b> sequential frames
+        of the arm executing the predicted primitive. This functions as a sanity check on real hardware rather than a
+        thorough real-world benchmark.
+      </p>
+    </div>
+  </div>
+</section>
+<!-- End real-world -->
+
+<!--BibTex citation -->
+  <section class="section" id="BibTeX">
+    <div class="container is-max-desktop content">
+      <div class="bibtex-header">
+        <h2 class="title">BibTeX</h2>
+        <button class="copy-bibtex-btn" onclick="copyBibTeX()" title="Copy BibTeX to clipboard">
+          <i class="fas fa-copy"></i>
+          <span class="copy-text">Copy</span>
+        </button>
+      </div>
+      <!-- TODO: replace with the BibTeX entry once the paper is published -->
+      <pre id="bibtex-code"><code>Citation coming soon.</code></pre>
+    </div>
+</section>
+<!--End BibTex citation -->
+
+
+  <footer class="footer">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p>
+            This page was built using the <a href="https://github.com/eliahuhorwitz/Academic-project-page-template" target="_blank">Academic Project Page Template</a> which was adopted from the <a href="https://nerfies.github.io" target="_blank">Nerfies</a> project page.
+            <br> This website is licensed under a <a rel="license"  href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank">Creative
+            Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+  </main>
+  </body>
+  </html>
