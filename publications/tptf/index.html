@@ -317,15 +317,15 @@
 
     <h3 class="title is-5">Multi-task: the gap widens when sharing a training stream</h3>
     <div class="content">
-      <p>Per-task L4 success rate (%) in the multi-task setting at 1000 demos, rapid switching (κ = 1):</p>
+      <p>Per-task success rate (%) in the multi-task setting at 1000 demos, rapid switching (κ = 1):</p>
       <table class="table is-fullwidth is-striped is-hoverable">
         <thead>
-          <tr><th>Task</th><th>Transporter</th><th>TpTf</th></tr>
+          <tr><th>Task</th><th>Transporter</th><th>TpTf</th><th>TpTf-xs</th></tr>
         </thead>
         <tbody>
-          <tr><td>stack-block-pyramid</td><td>23.4</td><td><b>78.4</b></td></tr>
-          <tr><td>towers-of-hanoi</td><td>37.7</td><td><b>89.5</b></td></tr>
-          <tr><td><b>Average across all tasks</b></td><td>77.6</td><td><b>91.0</b></td></tr>
+          <tr><td>stack-block-pyramid</td><td>23.4</td><td><b>78.4</b></td><td>71.2</td></tr>
+          <tr><td>towers-of-hanoi</td><td>37.7</td><td><b>89.5</b></td><td>86.3</td></tr>
+          <tr><td><b>Average across all tasks</b></td><td>77.6</td><td><b>91.0</b></td><td>89.6</td></tr>
         </tbody>
       </table>
       <p>
@@ -383,9 +383,10 @@
         token-conditioned readouts it is not. At the pick stage, Transporter activates nearly uniformly over every
         pickable object whereas TpTf commits decisively to a single stacking block, with the place token already
         attending to that same block before any cross-branch communication. At the place stage, Transporter fires on the
-        placement regions of <i>both</i> tasks simultaneously — the signature of interference — while TpTf narrows to the
-        elected region. TpTf recovers the non-interference property that Transporter buys through full replication, but
-        with one encoder instead of three.
+        placement regions of <i>both</i> tasks simultaneously — the signature of task interference — while TpTf narrows
+        to the elected region. Replication gives Transporter clean separation across its pick, place, and crop
+        operations, but not across two co-present tasks; TpTf attains both from a single shared encoder, with no
+        replication at all.
       </p>
     </div>
   </div>
