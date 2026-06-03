@@ -21,7 +21,11 @@ rsync -a \
   ./ _site/
 
 # Flatten publications/* to the root: publications/tptf -> _site/tptf
-rsync -a publications/ _site/
+# NOTE: tptf is temporarily withheld from publication while the paper is under
+# double-blind review (so the public /tptf/ URL stays a 404 and can't
+# de-anonymize the submission). Files remain in the repo; remove this exclude
+# to republish after review.
+rsync -a --exclude='tptf' publications/ _site/
 
 echo "Built _site/"
 echo "Preview with: (cd _site && python3 -m http.server 8000)"

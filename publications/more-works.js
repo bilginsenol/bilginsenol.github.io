@@ -9,12 +9,13 @@
 // (toggleMoreWorks() is provided by each page's static/js/index.js.)
 (function () {
   const works = [
-    {
-      title: "TpTf: Transporting Transformer Networks",
-      desc: "A shared self-attention encoder replacing Transporter's three CNN branches for visual robotic manipulation.",
-      venue: "Preprint 2026",
-      url: "https://bilginsenol.github.io/tptf/"
-    }
+    // TpTf hidden during double-blind review; restore after review.
+    // {
+    //   title: "TpTf: Transporting Transformer Networks",
+    //   desc: "A shared self-attention encoder replacing Transporter's three CNN branches for visual robotic manipulation.",
+    //   venue: "Preprint 2026",
+    //   url: "https://bilginsenol.github.io/tptf/"
+    // }
     // Add new publications here, e.g.:
     // { title: "Paper 2 Title", desc: "One-line summary.", venue: "Venue Year", url: "https://bilginsenol.github.io/paper2/" },
   ];
